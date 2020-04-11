@@ -28,26 +28,26 @@ class YoutubePlaylistDuration {
   toSeconds(input) {
     try {
       const regex = /^P(?:(\d+)D)?T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
-    let days = 0;
-    let hours = 0;
-    let minutes = 0;
-    let seconds = 0;
-    let totalSeconds;
+      let days = 0;
+      let hours = 0;
+      let minutes = 0;
+      let seconds = 0;
+      let totalSeconds;
 
-    if (regex.test(input)) {
-      let matches = regex.exec(input);
+      if (regex.test(input)) {
+        let matches = regex.exec(input);
 
-      if (matches[1]) days = Number(matches[1]);
-      if (matches[2]) hours = Number(matches[2]);
-      if (matches[3]) minutes = Number(matches[3]);
-      if (matches[4]) seconds = Number(matches[4]);
-      
-      totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
-    } else {
-      throw new Error(`Invalid date: ${input}`);
-    }
+        if (matches[1]) days = Number(matches[1]);
+        if (matches[2]) hours = Number(matches[2]);
+        if (matches[3]) minutes = Number(matches[3]);
+        if (matches[4]) seconds = Number(matches[4]);
 
-    return totalSeconds;
+        totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
+      } else {
+        throw new Error(`Invalid date: ${input}`);
+      }
+
+      return totalSeconds;
     } catch (e) {
       console.error(e);
       if (e.message.includes('Invalid date')) {
@@ -74,6 +74,12 @@ class YoutubePlaylistDuration {
     });
   }
 
+  async calculatePageDuration(videos) {
+    for (const video of videos.data.items) {
+      this.duration += this.toSeconds(video.contentDetails.duration);
+    }
+  }
+
   async fetchPlaylist(playlistId, pageToken = null) {
     const { data } = await this.fetchPage(playlistId, pageToken);
 
@@ -84,10 +90,7 @@ class YoutubePlaylistDuration {
     }
 
     const videos = await this.fetchVideos(ids);
-
-    for (const video of videos.data.items) {
-      this.duration += this.toSeconds(video.contentDetails.duration);
-    }
+    this.calculatePageDuration(videos);
 
     if (data.nextPageToken) {
       await this.fetchPlaylist(playlistId, data.nextPageToken);

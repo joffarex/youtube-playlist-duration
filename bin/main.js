@@ -16,5 +16,5 @@ exec(`node ${path} ${apiKey} ${playlistId}`, (error, stdout, stderr) => {
     console.log(`stderr: ${stderr}`);
     return;
   }
-  console.log(`\n${playlistId} duration: ${stdout}`);
+  console.log(`\nPLAYLIST: ${playlistId}\nDURATION: ${stdout}`);
 });
