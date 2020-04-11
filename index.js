@@ -1,5 +1,5 @@
 const { google } = require('googleapis');
-const YoutubePlaylistDuration = require('./ypd');
+const YoutubePlaylistDuration = require('./src/ypd');
 
 function main() {
   const apiKey = process.argv[2]; // google api key

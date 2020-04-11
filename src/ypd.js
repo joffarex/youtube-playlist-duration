@@ -23,7 +23,7 @@ class YoutubePlaylistDuration {
       if (matches[3]) seconds = Number(matches[3]);
       totalSeconds = hours * 3600 + minutes * 60 + seconds;
     } else {
-      throw new Error("Wrong date format");
+      throw new Error('Wrong date format');
     }
 
     return totalSeconds;
