@@ -1,4 +1,4 @@
-## youtube-playlist-downloader
+## youtube-playlist-duration
 
 ![npm](https://img.shields.io/npm/v/youtube-playlist-duration)
 
