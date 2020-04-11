@@ -2,7 +2,7 @@
 
 ![npm](https://img.shields.io/npm/v/youtube-playlist-duration)
 
-Install: ```npm i youtube-playlist-duration```
+Install: ```npm i -g youtube-playlist-duration```
 
 Usage: ```ypd <GOOGLE_API_KEY> <PLAYLIST_ID>```
 
