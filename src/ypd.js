@@ -6,22 +6,40 @@ class YoutubePlaylistDuration {
   }
 
   get formatedDuration() {
-    return new Date(1000 * this.duration).toISOString().substr(11, 8);
+    let seconds = this.duration;
+    let days = Math.floor(seconds / (3600 * 24));
+    seconds -= days * 3600 * 24;
+    let hours = Math.floor(seconds / 3600);
+    seconds -= hours * 3600;
+    let minutes = Math.floor(seconds / 60);
+    seconds -= minutes * 60;
+    
+    return `${
+      days === 0 ? `${
+        hours < 10 ? `0${hours}` : hours
+      }` : (days * 24) + hours
+    }:${
+      minutes < 10 ? `0${minutes}` : minutes
+    }:${
+      seconds < 10 ? `0${seconds}` : seconds
+    }`;
   }
 
   toSeconds(input) {
-    const regex = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
+    const regex = /^P(?:(\d+)D)?T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
+    let days = 0;
     let hours = 0;
     let minutes = 0;
     let seconds = 0;
     let totalSeconds;
-    
+
     if (regex.test(input)) {
       var matches = regex.exec(input);
-      if (matches[1]) hours = Number(matches[1]);
-      if (matches[2]) minutes = Number(matches[2]);
-      if (matches[3]) seconds = Number(matches[3]);
-      totalSeconds = hours * 3600 + minutes * 60 + seconds;
+      if (matches[1]) days = Number(matches[1]);
+      if (matches[2]) hours = Number(matches[2]);
+      if (matches[3]) minutes = Number(matches[3]);
+      if (matches[4]) seconds = Number(matches[4]);
+      totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
     } else {
       throw new Error('Wrong date format');
     }
