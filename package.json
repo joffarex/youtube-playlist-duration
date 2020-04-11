@@ -13,8 +13,7 @@
   },
   "homepage": "https://github.com/joffarex/youtube-playlist-duration#readme",
   "dependencies": {
-    "googleapis": "^48.0.0",
-    "shelljs": "^0.8.3"
+    "googleapis": "^48.0.0"
   },
   "devDependencies": {
     "jest": "^25.3.0"
