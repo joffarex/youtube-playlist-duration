@@ -13,20 +13,21 @@ class YoutubePlaylistDuration {
     seconds -= hours * 3600;
     let minutes = Math.floor(seconds / 60);
     seconds -= minutes * 60;
-    
+
     return `${
       days === 0 ? `${
         hours < 10 ? `0${hours}` : hours
-      }` : (days * 24) + hours
-    }:${
+        }` : (days * 24) + hours
+      }:${
       minutes < 10 ? `0${minutes}` : minutes
-    }:${
+      }:${
       seconds < 10 ? `0${seconds}` : seconds
-    }`;
+      }`;
   }
 
   toSeconds(input) {
-    const regex = /^P(?:(\d+)D)?T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
+    try {
+      const regex = /^P(?:(\d+)D)?T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
     let days = 0;
     let hours = 0;
     let minutes = 0;
@@ -34,17 +35,25 @@ class YoutubePlaylistDuration {
     let totalSeconds;
 
     if (regex.test(input)) {
-      var matches = regex.exec(input);
+      let matches = regex.exec(input);
+
       if (matches[1]) days = Number(matches[1]);
       if (matches[2]) hours = Number(matches[2]);
       if (matches[3]) minutes = Number(matches[3]);
       if (matches[4]) seconds = Number(matches[4]);
+      
       totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
     } else {
-      throw new Error('Wrong date format');
+      throw new Error(`Invalid date: ${input}`);
     }
 
     return totalSeconds;
+    } catch (e) {
+      console.error(e);
+      if (e.message.includes('Invalid date')) {
+        return 'Invalid date';
+      }
+    }
   }
 
   async fetchPage(playlistId, pageToken = null) {

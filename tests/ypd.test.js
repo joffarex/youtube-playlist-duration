@@ -8,6 +8,9 @@ const {
   mockYtapi,
 } = require('./mocks');
 
+// disable thrown error logs
+jest.spyOn(global.console, 'error').mockImplementation(() => jest.fn());
+
 describe('tests ypd class', () => {
   const ypd = new YoutubePlaylistDuration(mockAuth, mockYtapi);
 
@@ -26,16 +29,21 @@ describe('tests ypd class', () => {
   });
 
   it('should extract seconds from yt api date format', () => {
-    expect(ypd.toSeconds('PT69S')).toBe(69);
-    expect(ypd.toSeconds('PT4M')).toBe(240);
-    expect(ypd.toSeconds('PT4M20S')).toBe(260);
-    expect(ypd.toSeconds('PT1H')).toBe(3600);
-    expect(ypd.toSeconds('PT1H6M')).toBe(3960);
-    expect(ypd.toSeconds('PT1H6M9S')).toBe(3969);
+    expect(ypd.toSeconds('PT69S')).toBe(60 + 9);
+    expect(ypd.toSeconds('PT6M')).toBe(60 * 6);
+    expect(ypd.toSeconds('PT6M9S')).toBe((60 * 6) + 9);
+    expect(ypd.toSeconds('PT1H')).toBe(60 * 60);
+    expect(ypd.toSeconds('PT1H6M')).toBe((60 * 60) + (60 * 6));
+    expect(ypd.toSeconds('PT1H6M9S')).toBe((60 * 60) + (60 * 6) + 9);
+    expect(ypd.toSeconds('P1DT')).toBe((60 * 60 * 24));
+    expect(ypd.toSeconds('P1DT1H')).toBe((60 * 60 * 24) + (60 * 60));
+    expect(ypd.toSeconds('P1DT1H6M')).toBe((60 * 60 * 24) + (60 * 60) + (60 * 6));
+    expect(ypd.toSeconds('P1DT1H6M9S')).toBe((60 * 60 * 24) + (60 * 60) + (60 * 6) + 9);
   });
 
   it('should throw error if yt api date format is incorrect', () => {
-    expect(() => ypd.toSeconds('wrong date')).toThrowError(new Error('Wrong date format'));
+    // expect(() => ypd.toSeconds('wrong date')).toThrowError(new Error('Wrong date format'));
+    expect(ypd.toSeconds('wrong date')).toBe('Invalid date');
   });
 
   it('should fetch playlist page', async () => {
