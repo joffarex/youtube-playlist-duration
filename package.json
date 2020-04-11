@@ -20,5 +20,13 @@
   },
   "scripts": {
     "test": "jest"
-  }
+  },
+  "keywords": [
+    "youtube",
+    "playlist",
+    "duration",
+    "ypd",
+    "npm",
+    "package"
+  ]
 }
