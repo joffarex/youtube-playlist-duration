@@ -1,9 +1,9 @@
 class YoutubePlaylistDuration {
   duration = 0;
 
-  constructor(auth, google) {
+  constructor(auth, gapi) {
     this.auth = auth;
-    this.gapi = google;
+    this.ytapi = gapi.youtube('v3');
   }
 
   get formatedDuration() {
@@ -28,7 +28,7 @@ class YoutubePlaylistDuration {
   }
 
   async fetchPage(playlistId, pageToken = null) {
-    return this.gapi.youtube('v3').playlistItems.list({
+    return this.ytapi.playlistItems.list({
       part: 'contentDetails',
       playlistId,
       pageToken,
@@ -38,7 +38,7 @@ class YoutubePlaylistDuration {
   }
 
   async fetchVideos(ids) {
-    return this.gapi.youtube('v3').videos.list({
+    return this.ytapi.videos.list({
       id: ids.join(','),
       part: 'contentDetails',
       auth: this.auth,

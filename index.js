@@ -6,7 +6,7 @@ function main() {
   const playlistId = process.argv[3]; // playlist id
 
   const ypd = new YoutubePlaylistDuration(apiKey, google);
-  ypd.fetchPlaylist(playlistId).then(console.log).catch(console.error)
+  ypd.fetchPlaylist(playlistId).then(console.log).catch(console.error);
 }
 
 main();
