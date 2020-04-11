@@ -1,9 +1,8 @@
 class YoutubePlaylistDuration {
-  duration = 0;
-
-  constructor(auth, gapi) {
+  constructor(auth, ytapi) {
     this.auth = auth;
-    this.ytapi = gapi.youtube('v3');
+    this.ytapi = ytapi;
+    this.duration = 0;
   }
 
   get formatedDuration() {
@@ -12,8 +11,11 @@ class YoutubePlaylistDuration {
 
   toSeconds(input) {
     const regex = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
-    let hours = 0, minutes = 0, seconds = 0, totalSeconds;
-
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+    let totalSeconds;
+    
     if (regex.test(input)) {
       var matches = regex.exec(input);
       if (matches[1]) hours = Number(matches[1]);
