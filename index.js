@@ -11,7 +11,14 @@ async function main() {
       throw new Error('Please enter playlistId');
     }
 
-    const data = readFileSync(resolve(__dirname, 'keys.json'));
+    let data;
+
+    try {
+      data = readFileSync(resolve(__dirname, 'keys.json'));
+    } catch (e) {
+      console.error('Please first run \'ypd-init\' command');
+    }
+    
     const { apiKey } = JSON.parse(data.toString());
 
     if(!apiKey) {
