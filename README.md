@@ -7,7 +7,7 @@ Install: ```npm i -g youtube-playlist-duration```
 Usage: ```ypd <GOOGLE_API_KEY> <PLAYLIST_ID>```
 
 Todo:
-- add ```ypd gapi-key <KEY_HERE>``` command in order to add google api key only once
+- convert app into fully usable cli tool
 
 ### Development
 Clone this repo and then run ```npm test``` to ensure all tests pass, then start improving my messy code. :smile: 
