@@ -8,7 +8,6 @@ Usage: ```ypd <GOOGLE_API_KEY> <PLAYLIST_ID>```
 
 Todo:
 - add ```ypd gapi-key <KEY_HERE>``` command in order to add google api key only once
-- input validation and error handling
 
 ### Development
-First clone this repo and then run ```npm test``` to ensure all tests pass.
+Clone this repo and then run ```npm test``` to ensure all tests pass, then start improving my messy code. :smile: 
