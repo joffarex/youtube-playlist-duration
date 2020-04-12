@@ -4,7 +4,9 @@
 
 Install: ```npm i -g youtube-playlist-duration```
 
-Usage: ```ypd <GOOGLE_API_KEY> <PLAYLIST_ID>```
+Usage: 
+- First run ```ypd-init <GOOGLE_API_KEY>```
+- Then run ```ypd <PLAYLIST_ID>``` as many times as you wish
 
 Todo:
 - convert app into fully usable cli tool
