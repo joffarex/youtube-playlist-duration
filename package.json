@@ -30,6 +30,7 @@
     "package"
   ],
   "bin": {
-    "ypd": "bin/main.js"
+    "ypd": "bin/main.js",
+    "ypd-init": "bin/init.js"
   }
 }
