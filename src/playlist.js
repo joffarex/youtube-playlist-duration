@@ -12,7 +12,7 @@ async function processPlaylistId(playlistId) {
     let data;
 
     try {
-      data = readFileSync(resolve(__dirname, 'keys.json'));
+      data = readFileSync(resolve(__dirname, '../keys.json'));
     } catch (e) {
       console.error('Please first run \'ypd-init\' command');
     }
