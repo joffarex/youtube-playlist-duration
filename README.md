@@ -7,9 +7,7 @@ Install: ```npm i -g youtube-playlist-duration```
 Usage: 
 - First run ```ypd-init <GOOGLE_API_KEY>```
 - Then run ```ypd <PLAYLIST_ID>``` as many times as you wish
-
-Todo:
-- convert app into fully usable cli tool
+- Or in a case when you might want to list a lot of playlist durations, run ```ypd-file <PATH/TO/FILE>```
 
 ### Development
 Clone this repo and then run ```npm test``` to ensure all tests pass, then start improving my messy code. :smile: 
