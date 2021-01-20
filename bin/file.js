@@ -11,7 +11,7 @@ try {
     throw new Error('Please enter File path to read playlist IDs from');
   }
 
-  const readInterface = createInterface({ input: createReadStream(), output: process.stdout, console: false });
+  const readInterface = createInterface({ input: createReadStream(filePath), output: process.stdout, console: false });
 
   readInterface.on('line', (playlistId) => {
     const duration = processPlaylistId(playlistId);
