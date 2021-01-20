@@ -1,11 +1,10 @@
 #! /usr/bin/env node
-const { readFileSync, createReadStream } = require('fs');
-const { resolve } = require('path');
+const { createReadStream } = require('fs');
 const { createInterface } = require('readline');
 
-const { processPlaylistId } = require('./src/playlist');
+const { processPlaylistId } = require('../src/playlist');
 
-const filePath = process.argv[2]; // file path
+const filePath = process.argv[2];
 
 try {
   if (!filePath) {
