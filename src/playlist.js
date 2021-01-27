@@ -3,7 +3,7 @@ const { resolve } = require('path');
 const { google } = require('googleapis');
 const YoutubePlaylistDuration = require('./ypd');
 
-function handleLinkAsPlaylistId(playlistId) {
+const handleLinkAsPlaylistId = (playlistId) => {
   if(playlistId.includes('https://www.youtube.com/playlist?list=')) {
     return playlistId.replace('https://www.youtube.com/playlist?list=', '');
   }
@@ -13,8 +13,6 @@ function handleLinkAsPlaylistId(playlistId) {
 
 async function processPlaylistId(playlistId) {
   try {
-    playlistId = handleLinkAsPlaylistId(playlistId);
-
     if (!playlistId) {
       throw new Error('Please enter playlistId');
     }
@@ -42,17 +40,16 @@ async function processPlaylistId(playlistId) {
       for (const err of e.errors) {
         switch (err.reason) {
           case 'playlistNotFound':
-            console.error(`${err.reason}: Please enter correct playlist id`);
-            break;
+            throw new Error(`${err.reason}: Please enter correct playlist id`);
           default:
-            console.error(`${err.reason}: ${err.message}`);
+            throw new Error(`${err.reason}: ${err.message}`);
         }
       }
     }
 
   } catch (e) {
-    console.error(e);
+    console.error(e.message);
   }
 }
 
-module.exports = { processPlaylistId }
+module.exports = { processPlaylistId, handleLinkAsPlaylistId }

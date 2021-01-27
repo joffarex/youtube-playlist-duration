@@ -2,8 +2,8 @@
 const { createReadStream } = require('fs');
 const { createInterface } = require('readline');
 
-const { processPlaylistId } = require('../src/playlist');
-const { logFormattedOutput} = require('../src/helpers/output');
+const { processPlaylistId, handleLinkAsPlaylistId } = require('../src/playlist');
+const { logFormattedOutput } = require('../src/helpers/output');
 
 async function file() {
   const filePath = process.argv[2];
@@ -19,8 +19,9 @@ async function file() {
     });
 
     for await (const playlistId of readInterface) {
-      const duration = await processPlaylistId(playlistId);
-      logFormattedOutput(playlistId, duration);
+      const formattedPlaylistId = handleLinkAsPlaylistId(playlistId);
+      const duration = await processPlaylistId(formattedPlaylistId);
+      logFormattedOutput(formattedPlaylistId, duration);
     }
   } catch (e) {
     console.error(e);
