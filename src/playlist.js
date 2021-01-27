@@ -3,12 +3,20 @@ const { resolve } = require('path');
 const { google } = require('googleapis');
 const YoutubePlaylistDuration = require('./ypd');
 
+function handleLinkAsPlaylistId(playlistId) {
+  if(playlistId.includes('https://www.youtube.com/playlist?list=')) {
+    return playlistId.replace('https://www.youtube.com/playlist?list=', '');
+  }
+}
+
 async function processPlaylistId(playlistId) {
   try {
     if (!playlistId) {
       throw new Error('Please enter playlistId');
     }
 
+    playlistId = handleLinkAsPlaylistId(playlistId);
+    
     let data;
 
     try {
