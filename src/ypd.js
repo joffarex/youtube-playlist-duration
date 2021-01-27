@@ -14,14 +14,10 @@ class YoutubePlaylistDuration {
     let minutes = Math.floor(seconds / 60);
     seconds -= minutes * 60;
 
-    return `${
-      days === 0 ? `${
-        hours < 10 ? `0${hours}` : hours
+    return `${days === 0 ? `${hours < 10 ? `0${hours}` : hours
         }` : (days * 24) + hours
-      }:${
-      minutes < 10 ? `0${minutes}` : minutes
-      }:${
-      seconds < 10 ? `0${seconds}` : seconds
+      }:${minutes < 10 ? `0${minutes}` : minutes
+      }:${seconds < 10 ? `0${seconds}` : seconds
       }`;
   }
 
