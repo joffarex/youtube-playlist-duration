@@ -7,15 +7,17 @@ function handleLinkAsPlaylistId(playlistId) {
   if(playlistId.includes('https://www.youtube.com/playlist?list=')) {
     return playlistId.replace('https://www.youtube.com/playlist?list=', '');
   }
+
+  return playlistId;
 }
 
 async function processPlaylistId(playlistId) {
   try {
+    playlistId = handleLinkAsPlaylistId(playlistId);
+
     if (!playlistId) {
       throw new Error('Please enter playlistId');
     }
-
-    playlistId = handleLinkAsPlaylistId(playlistId);
     
     let data;
 
